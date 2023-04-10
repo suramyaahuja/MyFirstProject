@@ -7,7 +7,7 @@ internal class Program
         Console.Write("Hello, World!");
         Console.WriteLine("Okay");
         Console.Beep();
-        //comment
+     
 
         double z = 10 + 20.04;
         Console.WriteLine("Value of z is: " + z + " units");
@@ -87,17 +87,7 @@ internal class Program
         Console.WriteLine(firstName);
         Console.WriteLine(lastName);
 
-        /* Console.WriteLine("\n If-else \n");
-        Console.WriteLine("Enter age");
-        int age2 = Convert.ToInt32(Console.ReadLine());
-        if (age2 >= 18 && age2<100)
-        {
-            Console.WriteLine("You are allowed to sign up.");
-        }
-        else
-        {
-            Console.WriteLine("You must be 18+ to sign up.");
-        } */
+        // age.allowed();
 
         Console.WriteLine("\n Nested loop \n");
 
@@ -111,103 +101,10 @@ internal class Program
             Console.WriteLine();
         }
 
-      
+        // numbergame.NumberGame();
 
-        /*
-        Console.WriteLine("\n Rock, Paper, Scissors game \n");
+        // RPS.rockpaperscissors();
 
-        
-        Random r = new Random();
-        bool playAgain2 = true;
-
-        while (playAgain2)
-        {
-            String player = "";
-            String comp = "";
-            String h = "";
-            while (player != "ROCK" && player != "PAPER" && player != "SCISSORS")
-            {
-                Console.WriteLine("Enter rock, paper or scissors.");
-                player = Console.ReadLine();
-                player = player.ToUpper();
-            }
-            
-            switch(r.Next(1, 4))
-            {
-                case 1:
-                    comp = "ROCK";
-                    break;
-                case 2:
-                    comp = "PAPER";
-                    break;
-                case 3:
-                    comp = "SCISSORS";
-                    break;
-            }
-            Console.WriteLine("Player: " + player);
-            Console.WriteLine("Computer: " + comp);
-
-            switch (player)
-            {
-                case "ROCK":
-                    if (comp == "ROCK")
-                    {
-                        Console.WriteLine("It's a draw!");
-                    }
-                    else if (comp == "PAPER")
-                    {
-                        Console.WriteLine("You lose!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You win!");
-                    }
-                    break;
-                case "PAPER":
-                    if (comp == "ROCK")
-                    {
-                        Console.WriteLine("You win!");
-                    }
-                    else if (comp == "PAPER")
-                    {
-                        Console.WriteLine("It's a draw!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You lose!");
-                    }
-                    break;
-                case "SCISSORS":
-                    if (comp == "ROCK")
-                    {
-                        Console.WriteLine("You lose!");
-                    }
-                    else if (comp == "PAPER")
-                    {
-                        Console.WriteLine("You win!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("It's a draw!");
-                    }
-                    break;
-            }
-
-
-
-            Console.WriteLine("Do you want to play again(Y/N)?");
-            h = Console.ReadLine();
-            h = h.ToUpper();
-            if (h == "Y")
-            {
-                playAgain2 = true;
-            }
-            else
-            {
-                playAgain2 = false;
-            }
-        }
-        */
         Console.WriteLine("\n Array \n");
         String[] cars = { "BMW", "Mustang", "Skoda" };
         foreach (String CAR in cars)
@@ -286,6 +183,36 @@ internal class Program
             return total;
         }
 
+        Console.WriteLine("\n Polymorphism \n");
+        CarP carP = new CarP();
+        BicycleP bicycleP = new BicycleP();
+        BoatP boatP = new BoatP();
+
+        VehicleP[] vehicles = { carP, bicycleP, boatP };
+
+        foreach (VehicleP vehicle in vehicles)
+        {
+            vehicle.Go();
+        }
+
+        Console.WriteLine("\n Interfaces \n");
+        Rabbit rabbit = new Rabbit();
+        Hawk hawk = new Hawk();
+        Fish fish = new Fish();
+
+        rabbit.Flee();
+        hawk.Hunt();
+        fish.Flee();
+        fish.Hunt();
+
+        Console.WriteLine("\n Lists \n");
+        list.foodlist();
+
+        Console.WriteLine("\n Enums \n");
+        String name2 = PlanetRadius.Earth.ToString();
+        int radius = (int)PlanetRadius.Earth;
+        Console.WriteLine("planet: " + name2);
+        Console.WriteLine("radius: " + radius + "km");
 
     }
 }
@@ -316,3 +243,90 @@ public Vehicle2(String type)
 }
 }
 
+class VehicleP
+{
+    public virtual void Go()
+    {
+
+    }
+}
+class CarP : VehicleP
+{
+    public override void Go()
+    {
+        Console.WriteLine("The car is moving!");
+    }
+}
+class BicycleP : VehicleP
+{
+    public override void Go()
+    {
+        Console.WriteLine("The bicycle is moving!");
+    }
+}
+class BoatP : VehicleP
+{
+    public override void Go()
+    {
+        Console.WriteLine("The boat is moving!");
+    }
+}
+
+interface IPrey{
+    void Flee();
+}
+interface IPredator
+{
+    void Hunt();
+}
+class Rabbit : IPrey
+{
+    public void Flee()
+    {
+        Console.WriteLine("The rabbit runs away");
+    }
+}
+class Hawk : IPredator
+{
+    public void Hunt()
+    {
+        Console.WriteLine("The hawk is searching for food!");
+    }
+}
+class Fish : IPrey, IPredator
+{
+    public void Flee()
+    {
+        Console.WriteLine("The fish swims away!");
+    }
+    public void Hunt()
+    {
+        Console.WriteLine("The fish is searching for smaller fish!");
+    }
+}
+
+enum Planets
+{
+    Mercury = 1,
+    Venus = 2,
+    Earth = 3,
+    Mars = 4,
+    Jupiter = 5,
+    Saturn = 6,
+    Uranus = 7,
+    Neptune = 8,
+    Pluto = 9
+}
+
+enum PlanetRadius
+{
+    Mercury = 2439,
+    Venus = 6051,
+    Earth = 6371,
+    Mars = 3389,
+    Jupiter = 69911,
+    Saturn = 58232,
+    Uranus = 25362,
+    Neptune = 24622,
+    Pluto = 1188
+}
